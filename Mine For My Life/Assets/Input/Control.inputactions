@@ -1,0 +1,52 @@
+{
+    "name": "Control",
+    "maps": [
+        {
+            "name": "AimBar",
+            "id": "8d86f4fa-b6d8-474e-8be1-75f45e163343",
+            "actions": [
+                {
+                    "name": "StopBar",
+                    "type": "Button",
+                    "id": "5abbc5a4-093d-42c0-9ccc-2d5f13b7ca4b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "06773e02-3132-45b1-9875-ff21ae2a51d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6a209ff9-8014-4f81-968d-a8b65526e938",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StopBar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "017cf544-c904-4758-94fb-bb52b30c2214",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
