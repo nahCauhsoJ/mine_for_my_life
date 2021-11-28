@@ -6,20 +6,22 @@
             "id": "8d86f4fa-b6d8-474e-8be1-75f45e163343",
             "actions": [
                 {
-                    "name": "StopBar",
+                    "name": "BreakBlock",
                     "type": "Button",
                     "id": "5abbc5a4-093d-42c0-9ccc-2d5f13b7ca4b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "SwitchTool",
                     "type": "Button",
-                    "id": "06773e02-3132-45b1-9875-ff21ae2a51d6",
+                    "id": "70d3373d-48a4-4bac-9e5b-9b3fc4b35e95",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -30,13 +32,63 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StopBar",
+                    "action": "BreakBlock",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "017cf544-c904-4758-94fb-bb52b30c2214",
+                    "id": "e62ac376-4ea8-46b7-96de-b74b5b0ca8b6",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BreakBlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "952692b4-8e85-4a20-a6bc-cd56fe528889",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b197ce1-417d-4523-9a15-c46c9d1c35ca",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Main",
+            "id": "940034a8-f414-43e6-8041-b43267fe4db5",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ad9772e6-922b-45a5-b8cc-36dd60b5a67f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fdfe4faa-df0b-40a4-9e7e-9d106c9b3009",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
