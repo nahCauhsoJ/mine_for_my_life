@@ -15,6 +15,9 @@ public class AimBarCore : MonoBehaviour
 	public Animator aim_pin_animator;
 	public Slider block_hp_bar;
 	public Image block_hp_bar_fill;
+
+	public Button switch_btn;
+	public Button break_btn;
 	
 	RectTransform aim_bar_rect;
 	RectTransform aim_pin_rect;
@@ -60,12 +63,11 @@ public class AimBarCore : MonoBehaviour
 		aim_pin_value = 0;
 		aim_pin_range = new float[]{aim_pin_value, aim_pin_value + aim_pin_rect.sizeDelta.x};
 		
-		// These 3 are necessary to temporary initialize the block-breaking mechanic
+		// Note that if the bar is not active, these won't run. So better set it here.
 		current_tool = tool_scripts[0];
 		current_tool.gameObject.SetActive(true);
-		NewBlock(current_block,100);
-
-		OnStartBar();
+		//NewBlock(current_block,100); // This is a placeholder block, since Update runs before the aim bar is started.
+		//OnStartBar();
     }
 
     // Update is called once per frame
@@ -77,8 +79,38 @@ public class AimBarCore : MonoBehaviour
 		if (pin_moving) { aim_pin_stop_rect.anchoredPosition = aim_pin_rect.anchoredPosition; }
 		current_tool.ManualUpdate();
 	}
+
+	// Behold, the pinnacle of laziness.
+	public void StartAimBar() {aim_bar_animator.SetTrigger("start");}
+	public void StopAimBar() {aim_bar_animator.SetTrigger("stop");}
 	
-	void NewBlock(string block, float hp)
+	public void OnStartBar()
+	{
+		if (!MapCore.main.SeekBlock(PlayerCore.main.mine_positions[PlayerCore.main.cur_mine_pos].position))
+		{
+			StopAimBar();
+			return;
+		}
+
+		aim_pin_animator.SetTrigger("move");
+		pin_moving = true;
+		switch_btn.gameObject.SetActive(true);
+		break_btn.gameObject.SetActive(true);
+		aim_pin_img.enabled = true;
+		aim_pin_stop_img.enabled = false;
+	}
+
+	public void OnStopBar()
+	{
+		aim_pin_animator.SetTrigger("stop");
+		pin_moving = false;
+		switch_btn.gameObject.SetActive(false);
+		break_btn.gameObject.SetActive(false);
+		aim_pin_img.enabled = false;
+		aim_pin_stop_img.enabled = true;
+	}
+	
+	public void NewBlock(string block, float hp)
 	{
 		current_block = block;
 		block_max_hp = hp;
@@ -153,34 +185,17 @@ public class AimBarCore : MonoBehaviour
 	{
 		block_hp -= dmg;
 		block_hp_bar.value = block_hp / block_max_hp;
-		if (block_hp <= 0)
-		{
-			OnStopBar();
-			StartCoroutine(RestartBar());
-		}
+		if (block_hp <= 0) StartCoroutine(DestroyBlock());
 	}
 	
-	public void OnStopBar()
+	IEnumerator DestroyBlock()
 	{
-		aim_pin_animator.SetTrigger("stop");
-		pin_moving = false;
-	}
-	
-	public void OnStartBar()
-	{
-		aim_pin_animator.SetTrigger("move");
-		pin_moving = true;
-	}
-	
-	IEnumerator RestartBar()
-	{
-		aim_pin_img.enabled = false;
-		aim_pin_stop_img.enabled = true;
+		OnStopBar();
+		MapCore.main.DestroyBlock(PlayerCore.main.mine_positions[PlayerCore.main.cur_mine_pos].position);
+		MapCore.main.GenerateBlocks(PlayerCore.main.generate_positions[PlayerCore.main.cur_mine_pos].position);
 		yield return new WaitForSeconds(1f);
-		aim_pin_img.enabled = true;
-		aim_pin_stop_img.enabled = false;
-		NewBlock("stone",100f);
-		OnStartBar();
+		StopAimBar();
+		PlayerCore.main.GotoNextBlock();
 	}
 	
 	

@@ -117,13 +117,13 @@ public class AimBarHand : AimBarToolBase
             float swipe_length = 0f;
             if (!PinAnimator.main.move_side)
             {
-                swipe_length = AimBarCore.main.aim_pin_range[1] / AimBarCore.main.aim_range_modifier - swipe_start_range;
+                swipe_length = (AimBarCore.main.aim_pin_range[1] - swipe_start_range) / AimBarCore.main.aim_range_modifier;
                 target_aims[1].range_offset = swipe_start_range;
                 target_aims[1].range_length = swipe_length;
                 if (AimBarCore.main.aim_pin_range[1] >= 1000f - out_of_range_offset)
                     CheckAimRelease(AimBarCore.main.aim_pin_range[0], AimBarCore.main.aim_pin_range[1]);
             } else {
-                swipe_length = swipe_start_range - AimBarCore.main.aim_pin_range[0] / AimBarCore.main.aim_range_modifier;
+                swipe_length = (swipe_start_range - AimBarCore.main.aim_pin_range[0]) / AimBarCore.main.aim_range_modifier;
                 target_aims[1].range_offset = AimBarCore.main.aim_pin_range[0];
                 target_aims[1].range_length = swipe_length;
                 if (AimBarCore.main.aim_pin_range[1] <= out_of_range_offset)
